@@ -1,7 +1,10 @@
 {
     "name": "TosCore.Editor",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:bb6b89a309c80ff4ab0d9dc33c075e4d",
+        "GUID:69448af7b92c7f342b298e06a37122aa"
+    ],
     "includePlatforms": [
         "Editor"
     ],
