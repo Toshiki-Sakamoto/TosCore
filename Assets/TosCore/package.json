@@ -1,8 +1,8 @@
 {
   "name": "com.toshizabeth.core",
   "version": "0.0.1",
-  "displayName": "My Core Scripts",
-  "description": "共通で使用する便利なスクリプト集です。",
+  "displayName": "TosCore",
+  "description": "共通で使用する便利なスクリプト集",
   "unity": "2022.3",
   "author": {
     "name": "Toshiki Sakamoto"
