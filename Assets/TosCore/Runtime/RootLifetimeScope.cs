@@ -1,7 +1,9 @@
 ﻿using MessagePipe;
 using TosCore.Entity;
 using TosCore.Scene;
+using TosCore.TapBlocker;
 using TosCore.Tasks;
+using TosCore.UI;
 using VContainer;
 using VContainer.Unity;
 
@@ -27,6 +29,12 @@ namespace TosCore
             
             builder.Register<TimedTaskRunner>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<TimedTaskIdFactory>(Lifetime.Singleton).AsImplementedInterfaces();
+            
+            // UI
+            builder.Register<UIService>(Lifetime.Singleton).AsImplementedInterfaces();
+//            builder.RegisterComponentInHierarchy<UICameraProvider>().AsSelf();
+//            builder.RegisterComponentInHierarchy<TapBlockerRoot>().AsSelf();
+//            builder.Register<TapBlockerService>(Lifetime.Singleton).AsImplementedInterfaces();
             
             ConfigureCore(builder);
         }
