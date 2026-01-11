@@ -1,5 +1,6 @@
 ﻿using MessagePipe;
 using TosCore.Entity;
+using TosCore.MasterData;
 using TosCore.Scene;
 using TosCore.TapBlocker;
 using TosCore.Tasks;
@@ -35,6 +36,9 @@ namespace TosCore
 //            builder.RegisterComponentInHierarchy<UICameraProvider>().AsSelf();
 //            builder.RegisterComponentInHierarchy<TapBlockerRoot>().AsSelf();
 //            builder.Register<TapBlockerService>(Lifetime.Singleton).AsImplementedInterfaces();
+
+            // Master
+            builder.Register<AddressableMasterDataLoader>(Lifetime.Singleton).AsImplementedInterfaces();
             
             ConfigureCore(builder);
         }
