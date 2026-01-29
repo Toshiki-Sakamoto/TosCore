@@ -10,17 +10,18 @@ namespace TosCore.Entity
         /// <summary>
         /// エンティティ固有ID
         /// </summary>
-        public IEntityId Id { get; }
+        IEntityId Id { get; protected set; }
 
         /// <summary>
         /// IDの設定
         /// </summary>
-        public void AssignId(IEntityId id);
+        void AssignId(IEntityId id) =>
+            Id = id;
         
         /// <summary>
         /// IDによる比較
         /// </summary>
         bool IEquatable<IEntity>.Equals(IEntity other) =>
-            other.Id.Equals(Id);
+            other != null && other.Id.Equals(Id);
     }
 }

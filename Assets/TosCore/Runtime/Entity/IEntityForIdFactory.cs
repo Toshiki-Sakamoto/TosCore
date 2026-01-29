@@ -3,10 +3,9 @@ namespace TosCore.Entity
     /// <summary>
     /// Entityファクトリ
     /// </summary>
-    public interface IEntityForIdFactory<out T, TEntity>
-        where TEntity : IEntity
-        where T : IEntity, new()
+    public interface IEntityForIdFactory<out TEntity>
+        where TEntity : IEntity, new()
     {
-        T Create();
+        TEntity Create();
     }
 }
