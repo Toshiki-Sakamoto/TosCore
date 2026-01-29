@@ -1,4 +1,6 @@
-﻿namespace TosCore.MasterData
+﻿using System.Collections.Generic;
+
+namespace TosCore.MasterData
 {
     /// <summary>
     /// マスタデータレジストリクラス
@@ -19,5 +21,10 @@
         /// マスタをIDから検索
         /// </summary>
         bool TryGetValue(MasterId<TMaster> id, out TMaster master);
+        
+        /// <summary>
+        /// 全マスタを取得
+        /// </summary>
+        IEnumerable<TMaster> GetAllMasters();
     }
 }

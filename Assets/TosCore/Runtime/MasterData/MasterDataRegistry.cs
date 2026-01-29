@@ -23,8 +23,8 @@ namespace TosCore.MasterData
         {
             return _masterMap.TryGetValue(id, out master);
         }
-        
-        public IEnumerable<TMaster> GetAll()
+
+        public IEnumerable<TMaster> GetAllMasters()
         {
             return _masterMap.Values;
         }
