@@ -7,9 +7,15 @@
    
 `https://github.com/mob-sakai/GitDependencyResolverForUnity#install`
 
-
 UPMパス
 `https://github.com/mob-sakai/GitDependencyResolverForUnity.git`
 
 2. UPMで以下を入力
+   
 `https://github.com/Toshiki-Sakamoto/TosCore.git?path=Assets/TosCore`
+
+3. R3のインストール
+
+(Unityの再起動後)
+
+NuGet -> R3 パッケージのインストール
