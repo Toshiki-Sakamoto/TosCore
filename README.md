@@ -7,8 +7,6 @@
    
 `https://github.com/mob-sakai/GitDependencyResolverForUnity#install`
 
-`https://github.com/mob-sakai/GitDependencyResolverForUnity.git"`
-
 
 UPMパス
 `https://github.com/mob-sakai/GitDependencyResolverForUnity.git`
