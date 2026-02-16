@@ -67,7 +67,7 @@ namespace TosCore.Scene
             _updater.Initialize(_tickables);
             _exiter.Initialize(_exitables);
 
-            RunInitializationAsync();
+            RunInitializationAsync().GetAwaiter().GetResult(); // 一時的に同期的に止める
         }
 
         public void Tick()
