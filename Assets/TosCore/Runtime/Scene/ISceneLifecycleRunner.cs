@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace TosCore.Scene
 {
-    public interface ISceneLifecycleRunner : IInitializable, ITickable, IAsyncStartable, IDisposable
+    public interface ISceneLifecycleRunner : IPostInitializable, ITickable, IAsyncStartable, IDisposable
     {
         SceneLifecycleState State { get; }
         UniTask ShutdownAsync();

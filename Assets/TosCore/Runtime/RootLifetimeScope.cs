@@ -1,4 +1,5 @@
 ﻿using MessagePipe;
+using TosCore.Bootstrap;
 using TosCore.Entity;
 using TosCore.MasterData;
 using TosCore.Scene;
@@ -36,6 +37,10 @@ namespace TosCore
 //            builder.RegisterComponentInHierarchy<UICameraProvider>().AsSelf();
 //            builder.RegisterComponentInHierarchy<TapBlockerRoot>().AsSelf();
 //            builder.Register<TapBlockerService>(Lifetime.Singleton).AsImplementedInterfaces();
+
+            // Bootstrap
+            builder.Register<BootstrapGuard>(Lifetime.Singleton).As<IBootstrapGuard>();
+            builder.Register<NullDirectBootstrapper>(Lifetime.Singleton).As<IDirectBootstrapper>();
 
             // Master
             builder.Register<AddressableMasterDataLoader>(Lifetime.Singleton).AsImplementedInterfaces();
