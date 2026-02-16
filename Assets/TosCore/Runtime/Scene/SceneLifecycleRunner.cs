@@ -66,8 +66,6 @@ namespace TosCore.Scene
             _enterer.Initialize(_enterables);
             _updater.Initialize(_tickables);
             _exiter.Initialize(_exitables);
-
-            RunInitializationAsync().GetAwaiter().GetResult(); // 一時的に同期的に止める
         }
 
         public void Tick()
@@ -123,6 +121,8 @@ namespace TosCore.Scene
 
         public async UniTask StartAsync(CancellationToken cancellation)
         {
+            await RunInitializationAsync();
+            
             // 次にStart
             _state = SceneLifecycleState.Starting;
 
