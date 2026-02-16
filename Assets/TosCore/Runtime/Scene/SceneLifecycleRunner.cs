@@ -52,13 +52,6 @@ namespace TosCore.Scene
 
         public void Initialize()
         {
-            _initializer.Initialize(_initializables);
-            _starter.Initialize(_startables);
-            _enterer.Initialize(_enterables);
-            _updater.Initialize(_tickables);
-            _exiter.Initialize(_exitables);
-
-            RunInitializationAsync().Forget();
         }
 
         public void Tick()
@@ -107,6 +100,16 @@ namespace TosCore.Scene
         
         public async UniTask StartAsync(CancellationToken cancellation)
         {
+            // 開始時にシーンの初期化をまずは走らせる
+            _initializer.Initialize(_initializables);
+            _starter.Initialize(_startables);
+            _enterer.Initialize(_enterables);
+            _updater.Initialize(_tickables);
+            _exiter.Initialize(_exitables);
+            
+            await RunInitializationAsync();
+            
+            // 次にStart
             _state = SceneLifecycleState.Starting;
             
             if (_starter.HasStartables)
