@@ -1,3 +1,4 @@
+using VContainer;
 using VContainer.Unity;
 
 namespace TosCore.Bootstrap
@@ -6,10 +7,11 @@ namespace TosCore.Bootstrap
     /// 正規ルート(Bootstrap)のLifetimeScopeでEntryPointとして登録する
     /// IInitializable.Initialize()で BootstrapGuard をマークする
     /// </summary>
-    public sealed class BootstrapInitializer : IInitializable
+    public class BootstrapInitializer : IInitializable
     {
         private readonly IBootstrapGuard _guard;
 
+        [Inject]
         public BootstrapInitializer(IBootstrapGuard guard)
         {
             _guard = guard;
@@ -18,6 +20,13 @@ namespace TosCore.Bootstrap
         public void Initialize()
         {
             _guard.MarkAsBootstrapped();
+
+            InitializeCore();
+        }
+
+        protected virtual void InitializeCore()
+        {
+            
         }
     }
 }
