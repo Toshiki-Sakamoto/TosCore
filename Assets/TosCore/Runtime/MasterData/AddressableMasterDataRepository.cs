@@ -4,26 +4,35 @@ using UnityEngine;
 namespace TosCore.MasterData
 {
     /// <summary>
-    /// Addressableを利用したマスタデータ管理レジストリクラス
+    /// Addressableを利用したマスタデータ管理リポジトリクラス
     /// </summary>
-    public abstract class AddressableMasterDataRegistry<TMaster> : MasterDataRegistry<TMaster>, IAddressableMasterDataRegistry
+    public abstract class AddressableMasterDataRepository<TMaster> : MasterDataRepository<TMaster>, IAddressableMasterDataLoadTarget
         where TMaster : AddressableMasterData<TMaster>
     {
         public abstract string AddressableKey { get; }
-        
-        public void Register(IList<ScriptableObject> masters)
+
+        void IAddressableMasterDataLoadTarget.ReplaceAll(IList<ScriptableObject> masters)
         {
+            var typedMasters = new List<TMaster>(masters?.Count ?? 0);
+            if (masters == null)
+            {
+                ReplaceAll(typedMasters);
+                return;
+            }
+
             foreach (var master in masters)
             {
                 if (master is TMaster typed)
                 {
-                    Register(typed);
+                    typedMasters.Add(typed);
                 }
                 else
                 {
                     Debug.LogWarning($"Addressable master type mismatch. Expected {typeof(TMaster).Name}, got {master.GetType().Name}.");
                 }
             }
+
+            ReplaceAll(typedMasters);
         }
     }
 }

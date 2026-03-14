@@ -21,8 +21,8 @@ namespace TosCore
         {
             builder.RegisterMessagePipe();
             
-            builder.Register<IdGeneratorRegistry>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<IdGeneratorStateRepository>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<IdSequenceService>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<UnityIdSequenceStateStore>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<SceneInitializer>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<SceneStarter>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<SceneEnterer>(Lifetime.Singleton).AsImplementedInterfaces();

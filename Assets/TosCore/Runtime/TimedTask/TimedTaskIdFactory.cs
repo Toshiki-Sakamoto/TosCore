@@ -6,12 +6,12 @@ namespace TosCore.Tasks
 {
     public sealed class TimedTaskIdFactory : ITimedTaskIdFactory
     {
-        private readonly IIdGeneratorRegistry _idGeneratorRegistry;
+        private readonly IIdSequenceService _idSequenceService;
 
         [Inject]
-        public TimedTaskIdFactory(IIdGeneratorRegistry idGeneratorRegistry)
+        public TimedTaskIdFactory(IIdSequenceService idSequenceService)
         {
-            _idGeneratorRegistry = idGeneratorRegistry;
+            _idSequenceService = idSequenceService;
         }
 
         public TimedTaskId Create() =>
@@ -19,7 +19,7 @@ namespace TosCore.Tasks
 
         public TimedTaskId Create(string prefix)
         {
-            var seed = _idGeneratorRegistry.NextFor<TimedTaskId>();
+            var seed = _idSequenceService.NextFor<TimedTaskId>();
             return CreateCore(prefix, seed);
         }
 

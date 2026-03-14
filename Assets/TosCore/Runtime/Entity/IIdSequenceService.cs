@@ -1,9 +1,9 @@
 namespace TosCore.Entity
 {
     /// <summary>
-    /// IdGeneratorレジストリ
+    /// 型ごとの連番採番サービス
     /// </summary>
-    public interface IIdGeneratorRegistry
+    public interface IIdSequenceService
     {
         /// <summary>
         /// 次のT型のIDを取り出す

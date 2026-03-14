@@ -3,9 +3,9 @@ using System.Collections.Generic;
 namespace TosCore.Entity
 {
     /// <summary>
-    /// ID生成器の保存管理
+    /// 採番状態の保存管理
     /// </summary>
-    public interface IIdGeneratorStateRepository
+    public interface IIdSequenceStateStore
     {
         IReadOnlyDictionary<TypeToken, long> GetStates();
         

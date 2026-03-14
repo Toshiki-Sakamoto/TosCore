@@ -2,11 +2,6 @@ using System;
 
 namespace TosCore.Entity
 {
-    public interface IIdentifier
-    {
-        long Id { get; }
-    }
-    
     /// <summary>
     /// EntityID基底インターフェース
     /// </summary>

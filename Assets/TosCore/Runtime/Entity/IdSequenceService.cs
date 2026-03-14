@@ -5,15 +5,15 @@ using VContainer;
 
 namespace TosCore.Entity
 {
-    public class IdGeneratorRegistry : IIdGeneratorRegistry
+    public class IdSequenceService : IIdSequenceService
     {
-        private readonly IIdGeneratorStateRepository _stateRepository;
+        private readonly IIdSequenceStateStore _stateStore;
         private readonly ConcurrentDictionary<Type, long> _idMap = new();
 
         [Inject]
-        public IdGeneratorRegistry(IIdGeneratorStateRepository stateRepository)
+        public IdSequenceService(IIdSequenceStateStore stateStore)
         {
-            _stateRepository = stateRepository;
+            _stateStore = stateStore;
             RestoreState();
         }
 
@@ -29,12 +29,12 @@ namespace TosCore.Entity
 
         public void SaveState()
         {
-            _stateRepository.SetStates(CreateSnapshot());
+            _stateStore.SetStates(CreateSnapshot());
         }
 
         private void RestoreState()
         {
-            var snapshot = _stateRepository.GetStates();
+            var snapshot = _stateStore.GetStates();
             foreach (var entry in snapshot)
             {
                 var type = entry.Key.Resolve();

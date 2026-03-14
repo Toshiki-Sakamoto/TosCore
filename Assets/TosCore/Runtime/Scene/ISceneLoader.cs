@@ -3,9 +3,9 @@ using Cysharp.Threading.Tasks;
 namespace TosCore.Scene
 {
     /// <summary>
-    /// シーン遷移サービス
+    /// シーンロード処理
     /// </summary>
-    public interface ISceneTransitionService
+    public interface ISceneLoader
     {
         /// <summary>
         /// 指定したシーンに移動する

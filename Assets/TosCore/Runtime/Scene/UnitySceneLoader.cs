@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 namespace TosCore.Scene
 {
-    public class SceneTransitionService : ISceneTransitionService
+    public class UnitySceneLoader : ISceneLoader
     {
         public async UniTask LoadSceneAsync(string sceneName)
         {

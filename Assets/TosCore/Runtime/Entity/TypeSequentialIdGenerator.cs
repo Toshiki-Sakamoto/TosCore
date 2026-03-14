@@ -5,12 +5,12 @@ namespace TosCore.Entity
 {
     public class TypeSequentialIdGenerator<T> : IIdGenerator<T>
     {
-        [Inject] private readonly IIdGeneratorRegistry _idGeneratorRegistry;
+        [Inject] private readonly IIdSequenceService _idSequenceService;
         
         public EntityId<T> NewId() =>
-            new (_idGeneratorRegistry.NextFor<T>());
+            new (_idSequenceService.NextFor<T>());
 
         public long PeekNext() =>
-            _idGeneratorRegistry.PeekFor<T>();
+            _idSequenceService.PeekFor<T>();
     }
 }

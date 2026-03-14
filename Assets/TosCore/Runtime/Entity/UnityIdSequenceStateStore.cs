@@ -6,7 +6,7 @@ using UnityEngine;
 namespace TosCore.Entity
 {
     [Serializable]
-    public class IdGeneratorStateRepository : IIdGeneratorStateRepository
+    public class UnityIdSequenceStateStore : IIdSequenceStateStore
     {
         [SerializeField] private SerializableDictionary<TypeToken, long> _stateMap = new();
 

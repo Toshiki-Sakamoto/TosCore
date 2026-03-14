@@ -11,7 +11,8 @@ namespace TosCore.Scene
         {
             builder.RegisterEntryPoint<SceneLifecycleRunner>().As<ISceneLifecycleRunner>();
             builder.RegisterEntryPoint<SceneTransitionRequestListener>();
-            builder.Register<SceneTransitionService>(Lifetime.Singleton).As<ISceneTransitionService>();
+            builder.Register<SceneTransitionUseCase>(Lifetime.Singleton).As<ISceneTransitionUseCase>();
+            builder.Register<UnitySceneLoader>(Lifetime.Singleton).As<ISceneLoader>();
             
             ConfigureCore(builder);
         }

@@ -10,13 +10,7 @@ namespace TosCore.Entity
         /// <summary>
         /// エンティティ固有ID
         /// </summary>
-        IEntityId Id { get; protected set; }
-
-        /// <summary>
-        /// IDの設定
-        /// </summary>
-        void AssignId(IEntityId id) =>
-            Id = id;
+        IEntityId Id { get; }
         
         /// <summary>
         /// IDによる比較
