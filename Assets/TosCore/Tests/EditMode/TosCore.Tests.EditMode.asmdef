@@ -1,14 +1,16 @@
 {
-    "name": "Tests",
+    "name": "TosCore.Tests.EditMode",
     "rootNamespace": "",
     "references": [
+        "TosCore",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "TosCore",
         "UniTask",
         "VContainer"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
