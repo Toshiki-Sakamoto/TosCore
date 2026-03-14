@@ -76,14 +76,18 @@ namespace TosCore.Editor.MasterData
 
         public static bool IsAddressableMasterDataType(Type type)
         {
-            while (type != null)
+            if (type == null) return false;
+
+            var interfaces = type.GetInterfaces();
+            for (var i = 0; i < interfaces.Length; i++)
             {
-                if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(AddressableMasterData<>))
+                var implemented = interfaces[i];
+                if (!implemented.IsGenericType) continue;
+
+                if (implemented.GetGenericTypeDefinition() == typeof(IAddressableMasterData<>))
                 {
                     return true;
                 }
-
-                type = type.BaseType;
             }
 
             return false;

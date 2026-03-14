@@ -7,7 +7,7 @@ namespace TosCore.MasterData
     /// Addressableを利用したマスタデータ管理リポジトリクラス
     /// </summary>
     public abstract class AddressableMasterDataRepository<TMaster> : MasterDataRepository<TMaster>, IAddressableMasterDataLoadTarget
-        where TMaster : AddressableMasterData<TMaster>
+        where TMaster : IAddressableMasterData<TMaster>
     {
         public abstract string AddressableKey { get; }
 
