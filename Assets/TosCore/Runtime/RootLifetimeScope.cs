@@ -1,6 +1,7 @@
 ﻿using MessagePipe;
 using TosCore.Bootstrap;
 using TosCore.Entity;
+using TosCore.Instantiation;
 using TosCore.MasterData;
 using TosCore.Scene;
 using TosCore.TapBlocker;
@@ -31,6 +32,7 @@ namespace TosCore
             
             builder.Register<TimedTaskRunner>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<TimedTaskIdFactory>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<UnityObjectInstantiator>(Lifetime.Singleton).As<IObjectInstantiator>();
             
             // UI
             builder.Register<UIService>(Lifetime.Singleton).AsImplementedInterfaces();
