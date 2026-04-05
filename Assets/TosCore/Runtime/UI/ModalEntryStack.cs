@@ -30,15 +30,13 @@ namespace TosCore.UI
             return true;
         }
 
+        /// <summary>
+        /// 逆順にして返す
+        /// </summary>
         public IModalEntry[] SnapshotTopFirst()
         {
             var result = _entries.ToArray();
-            for (var left = 0; left < result.Length / 2; left++)
-            {
-                var right = result.Length - left - 1;
-                (result[left], result[right]) = (result[right], result[left]);
-            }
-
+            System.Array.Reverse(result);
             return result;
         }
     }

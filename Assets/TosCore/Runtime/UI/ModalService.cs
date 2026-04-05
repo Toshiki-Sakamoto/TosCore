@@ -86,7 +86,7 @@ namespace TosCore.UI
                 var result = await ShowAsync(builder, ct);
                 return ModalResult<TResult>.Success(result);
             }
-            catch (OperationCanceledException)
+            catch (OperationCanceledException) // 外部からCloseが呼び出されてボタン決定じゃないのに進んだ時に呼び出される
             {
                 return ModalResult<TResult>.Canceled();
             }

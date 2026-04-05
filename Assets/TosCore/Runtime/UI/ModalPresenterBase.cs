@@ -35,6 +35,10 @@ namespace TosCore.UI
 
                     return await _completionSource.Task;
                 }
+                catch (OperationCanceledException)
+                {
+                    throw;
+                }
                 catch (Exception exception)
                 {
                     OnShowFailed(exception);
@@ -42,6 +46,7 @@ namespace TosCore.UI
                 }
                 finally
                 {
+                    await CloseViewAsync();
                     _completionSource = null;
                     _isShowing = false;
                     _isClosed = false;
@@ -55,7 +60,6 @@ namespace TosCore.UI
 
             _isClosed = true;
             _completionSource.TrySetCanceled();
-            CloseView();
         }
 
         protected void SetResult(TResult result)
@@ -64,7 +68,6 @@ namespace TosCore.UI
 
             _isClosed = true;
             _completionSource.TrySetResult(result);
-            CloseView();
         }
 
         /// <summary>
@@ -76,8 +79,12 @@ namespace TosCore.UI
         {
         }
 
-        protected virtual void CloseView()
+        /// <summary>
+        /// Viewの閉じるアニメーション等の非同期処理
+        /// </summary>
+        protected virtual UniTask CloseViewAsync()
         {
+            return UniTask.CompletedTask;
         }
 
         private void CancelByToken()
