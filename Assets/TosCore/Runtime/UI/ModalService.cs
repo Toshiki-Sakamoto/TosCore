@@ -11,6 +11,9 @@ namespace TosCore.UI
     /// </summary>
     public class ModalService : IModalService, IDisposable
     {
+        /// <summary>
+        /// 表示されている一つのモーダルを管理
+        /// </summary>
         private sealed class ModalEntry<TResult> : IModalEntry
         {
             private readonly IModalPresenter<TResult> _presenter;

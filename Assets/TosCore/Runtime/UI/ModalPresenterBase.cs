@@ -24,13 +24,13 @@ namespace TosCore.UI
             _isShowing = true;
             _isClosed = false;
 
-            using (ct.Register(CancelByToken))
+            await using (ct.Register(CancelByToken))
             {
                 try
                 {
                     if (!ct.IsCancellationRequested)
                     {
-                        OnShow();
+                        await ShowViewAsync(ct);
                     }
 
                     return await _completionSource.Task;
@@ -55,7 +55,7 @@ namespace TosCore.UI
 
             _isClosed = true;
             _completionSource.TrySetCanceled();
-            OnClose();
+            CloseView();
         }
 
         protected void SetResult(TResult result)
@@ -64,16 +64,19 @@ namespace TosCore.UI
 
             _isClosed = true;
             _completionSource.TrySetResult(result);
-            OnClose();
+            CloseView();
         }
 
-        protected abstract void OnShow();
+        /// <summary>
+        /// Viewの表示待機処理
+        /// </summary>
+        protected abstract UniTask ShowViewAsync(CancellationToken ct);
 
         protected virtual void OnShowFailed(Exception exception)
         {
         }
 
-        protected virtual void OnClose()
+        protected virtual void CloseView()
         {
         }
 
