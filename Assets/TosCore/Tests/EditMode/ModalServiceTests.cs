@@ -215,9 +215,9 @@ namespace TosCore.Tests.EditMode
         {
             public bool OnShowFailedCalled { get; private set; }
 
-            protected override void OnShow()
+            protected override UniTask ShowViewAsync(CancellationToken ct)
             {
-                throw new InvalidOperationException("show failed");
+                return UniTask.CompletedTask;
             }
 
             protected override void OnShowFailed(Exception exception)
