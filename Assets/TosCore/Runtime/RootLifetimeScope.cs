@@ -1,5 +1,7 @@
 ﻿using MessagePipe;
+using TosCore.Bootstrap;
 using TosCore.Entity;
+using TosCore.Instantiation;
 using TosCore.MasterData;
 using TosCore.Scene;
 using TosCore.TapBlocker;
@@ -20,8 +22,8 @@ namespace TosCore
         {
             builder.RegisterMessagePipe();
             
-            builder.Register<IdGeneratorRegistry>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<IdGeneratorStateRepository>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<IdSequenceService>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<UnityIdSequenceStateStore>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<SceneInitializer>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<SceneStarter>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<SceneEnterer>(Lifetime.Singleton).AsImplementedInterfaces();
@@ -30,12 +32,17 @@ namespace TosCore
             
             builder.Register<TimedTaskRunner>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<TimedTaskIdFactory>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<UnityObjectInstantiator>(Lifetime.Singleton).As<IObjectInstantiator>();
             
             // UI
             builder.Register<UIService>(Lifetime.Singleton).AsImplementedInterfaces();
 //            builder.RegisterComponentInHierarchy<UICameraProvider>().AsSelf();
 //            builder.RegisterComponentInHierarchy<TapBlockerRoot>().AsSelf();
 //            builder.Register<TapBlockerService>(Lifetime.Singleton).AsImplementedInterfaces();
+
+            // Bootstrap
+            builder.Register<BootstrapGuard>(Lifetime.Singleton).As<IBootstrapGuard>();
+            builder.Register<NullDirectBootstrapper>(Lifetime.Singleton).As<IDirectBootstrapper>();
 
             // Master
             builder.Register<AddressableMasterDataLoader>(Lifetime.Singleton).AsImplementedInterfaces();

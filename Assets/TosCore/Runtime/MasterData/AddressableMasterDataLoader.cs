@@ -12,60 +12,53 @@ namespace TosCore.MasterData
 {
     public class AddressableMasterDataLoader : IMasterDataLoader
     {
-        private readonly IReadOnlyList<IAddressableMasterDataRegistry> _registries;
+        private readonly IReadOnlyList<IAddressableMasterDataLoadTarget> _repositories;
 
         [Inject]
-        public AddressableMasterDataLoader(IEnumerable<IAddressableMasterDataRegistry> registries)
+        public AddressableMasterDataLoader(IEnumerable<IAddressableMasterDataLoadTarget> repositories)
         {
-            _registries = BuildRegistryList(registries);
+            _repositories = BuildRepositoryList(repositories);
         }
 
         public async UniTask LoadAsync(CancellationToken cancellationToken)
         {
-            foreach (var registry in _registries)
-            {
-                registry.Clear();
-            }
+            if (_repositories.Count == 0) return;
 
-            if (_registries.Count == 0) return;
-
-            var tasks = new UniTask[_registries.Count];
-            for (var i = 0; i < _registries.Count; i++)
+            var tasks = new UniTask[_repositories.Count];
+            for (var i = 0; i < _repositories.Count; i++)
             {
-                tasks[i] = LoadAndRegisterAsync(_registries[i], cancellationToken);
+                tasks[i] = LoadAndReplaceAsync(_repositories[i], cancellationToken);
             }
 
             await UniTask.WhenAll(tasks);
         }
 
-        private static IReadOnlyList<IAddressableMasterDataRegistry> BuildRegistryList(
-            IEnumerable<IAddressableMasterDataRegistry> registries)
+        private static IReadOnlyList<IAddressableMasterDataLoadTarget> BuildRepositoryList(
+            IEnumerable<IAddressableMasterDataLoadTarget> repositories)
         {
-            if (registries == null) return Array.Empty<IAddressableMasterDataRegistry>();
-            return registries
-                .Where(registry => registry != null)
+            if (repositories == null) return Array.Empty<IAddressableMasterDataLoadTarget>();
+            return repositories
+                .Where(repository => repository != null)
                 .ToList();
         }
 
-        private static async UniTask LoadAndRegisterAsync(
-            IAddressableMasterDataRegistry registry,
-            CancellationToken cancellationToken)
+        private static async UniTask LoadAndReplaceAsync(IAddressableMasterDataLoadTarget repository, CancellationToken cancellationToken)
         {
-            if (string.IsNullOrEmpty(registry.AddressableKey)) return;
+            if (string.IsNullOrEmpty(repository.AddressableKey)) return;
             if (cancellationToken.IsCancellationRequested) return;
 
-            var handle = Addressables.LoadAssetsAsync<ScriptableObject>(registry.AddressableKey, null);
+            var handle = Addressables.LoadAssetsAsync<ScriptableObject>(repository.AddressableKey, null);
             var masters = await handle.Task;
 
             if (cancellationToken.IsCancellationRequested) return;
             
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
-                registry.Register(masters);
+                repository.ReplaceAll(masters);
             }
             else
             {
-                Debug.LogWarning($"Addressable load failed. Key: {registry.AddressableKey}");
+                Debug.LogWarning($"Addressable load failed. Key: {repository.AddressableKey}");
             }
         }
     }

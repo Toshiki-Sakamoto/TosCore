@@ -8,25 +8,21 @@ using VContainer.Unity;
 namespace TosCore.Scene
 {
     /// <summary>
-    /// シーン遷移イベントを受け取り、ライフサイクル終了とシーンロードを仲介するリスナー。
+    /// シーン遷移イベントを受け取り、ユースケースへ委譲する入力アダプタ。
     /// </summary>
     public sealed class SceneTransitionRequestListener : IInitializable, IDisposable
     {
-        private readonly ISceneLifecycleRunner _sceneLifecycleRunner;
-        private readonly ISceneTransitionService _sceneTransitionService;
+        private readonly ISceneTransitionUseCase _useCase;
         private readonly ISubscriber<SceneTransitionRequestEvent> _subscriber;
 
         private IDisposable? _subscription;
-        private bool _isProcessing;
 
         [Inject]
         public SceneTransitionRequestListener(
-            ISceneLifecycleRunner sceneLifecycleRunner,
-            ISceneTransitionService sceneTransitionService,
+            ISceneTransitionUseCase useCase,
             ISubscriber<SceneTransitionRequestEvent> subscriber)
         {
-            _sceneLifecycleRunner = sceneLifecycleRunner;
-            _sceneTransitionService = sceneTransitionService;
+            _useCase = useCase;
             _subscriber = subscriber;
         }
 
@@ -37,27 +33,18 @@ namespace TosCore.Scene
 
         private void OnSceneTransitionRequest(SceneTransitionRequestEvent request)
         {
-            if (_isProcessing) return;
-
             HandleAsync(request).Forget();
         }
 
         private async UniTaskVoid HandleAsync(SceneTransitionRequestEvent request)
         {
-            _isProcessing = true;
-
             try
             {
-                await _sceneLifecycleRunner.ShutdownAsync();
-                await _sceneTransitionService.LoadSceneAsync(request.SceneName);
+                await _useCase.ExecuteAsync(request.SceneName);
             }
             catch (Exception exception)
             {
                 Debug.LogException(exception);
-            }
-            finally
-            {
-                _isProcessing = false;
             }
         }
 

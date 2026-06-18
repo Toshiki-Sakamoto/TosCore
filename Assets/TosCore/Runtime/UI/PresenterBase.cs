@@ -6,7 +6,7 @@ namespace TosCore.UI
 {
     public abstract class PresenterBase : IPresenter
     {
-        [Inject] protected IUIService _uiService;
+        [Inject] protected readonly IUIService _uiService;
     
         public abstract UniTask ShowAsync(CancellationToken cancellationToken);
     

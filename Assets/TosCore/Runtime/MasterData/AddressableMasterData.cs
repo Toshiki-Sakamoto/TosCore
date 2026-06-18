@@ -6,8 +6,8 @@ namespace TosCore.MasterData
     /// <summary>
     /// Addressable に登録されたアセット GUID から安定した数値 ID を生成する基底クラス。
     /// </summary>
-    public abstract class AddressableMasterData<TMaster> : ScriptableObject, IMasterData<TMaster>
-        where TMaster : IMasterData<TMaster>
+    public abstract class AddressableMasterData<TMaster> : ScriptableObject, IAddressableMasterData<TMaster>
+        where TMaster : IAddressableMasterData<TMaster>
     {
         [SerializeField]
         private MasterId<TMaster> _id;
