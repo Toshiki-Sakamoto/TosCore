@@ -1,0 +1,22 @@
+{
+    "name": "TosCore.Network.Fusion",
+    "rootNamespace": "TosCore.Network.Fusion",
+    "references": [
+        "TosCore.Network",
+        "Fusion.Unity",
+        "UniTask",
+        "VContainer",
+        "MessagePipe"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "FUSION_WEAVER"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

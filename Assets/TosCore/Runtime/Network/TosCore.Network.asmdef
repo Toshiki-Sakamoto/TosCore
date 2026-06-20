@@ -1,0 +1,17 @@
+{
+    "name": "TosCore.Network",
+    "rootNamespace": "TosCore.Network",
+    "references": [
+        "MessagePipe",
+        "VContainer"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,14 @@
+{
+    "name": "TosCore.DevTools.Overlay",
+    "rootNamespace": "TosCore.DevTools.Overlay",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,19 @@
+{
+    "name": "TosCore.DevTools.DebugPage",
+    "rootNamespace": "TosCore.DevTools.DebugPage",
+    "references": [
+        "GUID:58c518d4346be9042bfa20894cfca1d3",
+        "VContainer"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "!EXCLUDE_UNITY_DEBUG_SHEET"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
