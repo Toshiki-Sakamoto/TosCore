@@ -1,0 +1,19 @@
+{
+    "name": "TosCore.Input",
+    "rootNamespace": "TosCore.Input",
+    "references": [
+        "TosCore",
+        "Unity.InputSystem",
+        "R3.Unity",
+        "VContainer"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
