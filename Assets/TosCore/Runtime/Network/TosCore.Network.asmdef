@@ -3,7 +3,8 @@
     "rootNamespace": "TosCore.Network",
     "references": [
         "MessagePipe",
-        "VContainer"
+        "VContainer",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

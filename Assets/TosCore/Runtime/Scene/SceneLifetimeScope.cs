@@ -1,3 +1,4 @@
+using TosCore.Bootstrap;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -13,6 +14,11 @@ namespace TosCore.Scene
             builder.RegisterEntryPoint<SceneTransitionRequestListener>();
             builder.Register<SceneTransitionUseCase>(Lifetime.Singleton).As<ISceneTransitionUseCase>();
             builder.Register<UnitySceneLoader>(Lifetime.Singleton).As<ISceneLoader>();
+
+            // 直起動の補完＋デバッグ表示を常時組み込む（要件0件なら no-op）
+            // PJ は ISceneDirectBootRequirement / ISceneDirectBootSupplement を ConfigureCore で足すだけ
+            builder.Register<DirectBootIndicator>(Lifetime.Singleton).As<IDirectBootIndicator>();
+            builder.Register<DirectBootSupplementInitializer>(Lifetime.Singleton).As<ISceneInitializable>();
             
             ConfigureCore(builder);
         }
