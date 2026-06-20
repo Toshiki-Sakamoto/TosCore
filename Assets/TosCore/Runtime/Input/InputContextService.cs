@@ -1,5 +1,5 @@
 using System;
-using TosCore.Scene;
+using VContainer.Unity;
 
 namespace TosCore.Input
 {
@@ -9,7 +9,7 @@ namespace TosCore.Input
     /// 活性の検出は Action Map の enabled 状態の遷移で行い、稼働中は毎フレーム <see cref="OnTick"/> が呼ばれる。
     /// このクラス（と派生の具象サービス）までが Input System に触れてよい層。
     /// </summary>
-    public abstract class InputContextService : ISceneTickable, IDisposable
+    public abstract class InputContextService : ITickable, IDisposable
     {
         /// <summary>このサービスが担当するコンテキスト。</summary>
         protected IInputContext Context { get; }
@@ -22,7 +22,7 @@ namespace TosCore.Input
             Context = context;
         }
 
-        public void Tick(float deltaTime)
+        public void Tick()
         {
             // 活性は「自分の Action Map が Enable されているか」で判定する。
             // スタックが top の Map だけ Enable するため、これがそのまま top 判定になる。
@@ -42,7 +42,7 @@ namespace TosCore.Input
 
             if (IsActive)
             {
-                OnTick(deltaTime);
+                OnTick();
             }
         }
 
@@ -57,7 +57,7 @@ namespace TosCore.Input
         }
 
         /// <summary>アクティブな間、毎フレーム呼ばれる。Action Map を解釈する本体。</summary>
-        protected virtual void OnTick(float deltaTime)
+        protected virtual void OnTick()
         {
         }
 
