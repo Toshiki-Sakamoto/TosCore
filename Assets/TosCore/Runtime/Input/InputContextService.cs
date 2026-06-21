@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using VContainer.Unity;
 
 namespace TosCore.Input
@@ -32,6 +33,7 @@ namespace TosCore.Input
                 IsActive = now;
                 if (now)
                 {
+                    ApplyCursor();
                     OnActivated();
                 }
                 else
@@ -44,6 +46,16 @@ namespace TosCore.Input
             {
                 OnTick();
             }
+        }
+
+        /// <summary>このコンテキストがアクティブな間のカーソル状態。既定はロックなし</summary>
+        protected virtual CursorLockMode CursorMode => CursorLockMode.None;
+
+        /// <summary>top になった瞬間に CursorMode を適用する。OnActivated の override 有無に依らず効く</summary>
+        private void ApplyCursor()
+        {
+            Cursor.lockState = CursorMode;
+            Cursor.visible = CursorMode == CursorLockMode.None;
         }
 
         /// <summary>自コンテキストがアクティブになった瞬間。</summary>
