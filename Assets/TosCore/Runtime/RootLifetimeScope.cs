@@ -4,6 +4,7 @@ using TosCore.Entity;
 using TosCore.Instantiation;
 using TosCore.MasterData;
 using TosCore.Scene;
+using TosCore.SystemInit;
 using TosCore.TapBlocker;
 using TosCore.Tasks;
 using TosCore.UI;
@@ -46,6 +47,9 @@ namespace TosCore
 
             // Master
             builder.Register<AddressableMasterDataLoader>(Lifetime.Singleton).AsImplementedInterfaces();
+
+            // System Init（各シーンが動く前に一度だけ走るシステム初期化のランナー。各シーンの SystemReadyGate が完了を待つ）
+            builder.Register<SystemInitializationRunner>(Lifetime.Singleton).As<ISystemInitializationRunner>();
             
             ConfigureCore(builder);
         }

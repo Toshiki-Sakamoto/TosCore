@@ -1,4 +1,5 @@
 using TosCore.Bootstrap;
+using TosCore.SystemInit;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -14,6 +15,9 @@ namespace TosCore.Scene
             builder.RegisterEntryPoint<SceneTransitionRequestListener>();
             builder.Register<SceneTransitionUseCase>(Lifetime.Singleton).As<ISceneTransitionUseCase>();
             builder.Register<UnitySceneLoader>(Lifetime.Singleton).As<ISceneLoader>();
+
+            // システム初期化（マスタ等）の完了を各シーン init 冒頭（最小 Priority）で待つゲート
+            builder.Register<SystemReadyGate>(Lifetime.Singleton).As<ISceneInitializable>();
 
             // 直起動の補完＋デバッグ表示を常時組み込む（要件0件なら no-op）
             // PJ は ISceneDirectBootRequirement / ISceneDirectBootSupplement を ConfigureCore で足すだけ
