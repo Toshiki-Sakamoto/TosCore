@@ -72,7 +72,7 @@ namespace TosCore.Network.Fusion
         /// <summary>
         /// Reliable Data 受信時のコールバック。
         /// </summary>
-        void INetworkRunnerCallbacks.OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ArraySegment<byte> data)
+        void INetworkRunnerCallbacks.OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ReadOnlySpan<byte> data)
         {
             // 自分宛て（このメッセージング層）のキーかどうか。
             if (key != NetworkMessageReliableKey) return;
@@ -83,12 +83,12 @@ namespace TosCore.Network.Fusion
             _networkMessageEnvelopeReceivedPublisher.Publish(new NetworkMessageEnvelopeReceivedMessage(envelope));
         }
 
-        private static bool TryDeserializeEnvelope(ArraySegment<byte> data, out NetworkMessageEnvelope envelope)
+        private static bool TryDeserializeEnvelope(ReadOnlySpan<byte> data, out NetworkMessageEnvelope envelope)
         {
             envelope = default;
             try
             {
-                var bytes = CopySegmentToArray(data);
+                var bytes = data.ToArray();
                 envelope = MemoryPackSerializer.Deserialize<NetworkMessageEnvelope>(bytes);
                 return true;
             }
